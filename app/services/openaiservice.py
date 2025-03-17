@@ -1,7 +1,5 @@
 from openai import OpenAI
 client = OpenAI()
-
-
 import openai
 
 class OpenAIService:

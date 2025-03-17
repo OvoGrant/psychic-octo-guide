@@ -92,3 +92,36 @@ def grade_translation_activity_prompt(language, source_text, target_text, readin
     }}
     ```
     """
+
+
+def create_listening_activity_prompt(language, reading_level):
+    return f""" 
+    You are being used as a language tutor for an application that uses comprehensible input to teach its students.
+    Your task is to generat some text in {language} at the {reading_level} level that will be read to the user and 
+    then transcribed by them. Ensure that there are no more than 200 characters in the story ensure that the reponse
+    has some degree of variation. Do not tell cliche stories ``
+
+    **Response Format:** Return the reponse as a valid JSON object with the following structur:
+    {{
+        title: "The title of the text",
+        text: "The full text",
+        sentences: ["sentence one", "sentence two" ... ]
+    }}
+    """
+
+def grade_listening_activity_prompt(original_text, translated_text):
+    return f"""
+    You are being used a grader for comprehensible input learning application. Your current task is to grade a students
+    listening exercise. The student was tasked with listening to each of the sentences and then transcribing whatever
+    they heard. the original text follows {original_text}. The following is the student's translation {translated_text}. 
+    You should grade the exercsie out of {5 * len(original_text)}. Each sentence can give a maximum of 5 points which
+    indicates that the season perfectly translated the sentence. a grade of 4 indicates they made no errors, but worded
+    their translation differently. All lower grades indicate that the student made both mistakes in terms of word choice
+    and grammar.
+
+     **Response Format:** Return the reponse as a valid JSON object with the following structur:
+    {{
+      score: number, 
+      total_points: number
+    }}
+    """
